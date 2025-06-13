@@ -20,7 +20,7 @@ username@hostname:current_directory
 
 例如：
 
-![shell_prompt](..\pic_1\shell_prompt.png)
+![shell_prompt](..\pic\pic_1\shell_prompt.png)
 
 请注意提示符最后的 `$`符号
 
@@ -32,11 +32,11 @@ username@hostname:current_directory
 
 `echo`  回声，顾名思义，**原样显示（回声在）**终端上
 
-![echo](..\pic_1\echo.png)
+![echo](..\pic\pic_1\echo.png)
 
 同样地，我们可以试试`date`（日期，显示当前的日期和时间），和`whoami`（我是谁，显示当前用户名），看看会输出什么？
 
-![date_whoami](..\pic_1\date_whoami.png)
+![date_whoami](..\pic\pic_1\date_whoami.png)
 
 ## 2. pwd (Print Working Directory)
 
@@ -125,11 +125,11 @@ $ cd taxes
 
 对于以上两种路径，例如，为了到达 `/home/elo/test/a/b` 这个文件夹内，如果我们想使用绝对路径：
 
-![absolute_path](..\pic_1\absolute_path.png)
+![absolute_path](..\pic\pic_1\absolute_path.png)
 
 假设我们已经在 `/home/elo/test/a`，那么直接使用如下命令：
 
-![relative_path](..\pic_1\relative_path.png)
+![relative_path](..\pic\pic_1\relative_path.png)
 
 
 
@@ -147,7 +147,7 @@ $ cd ~  # 回到主目录(比如/home/elo)
 $ cd -  # 回到一个你刚才去过的目录
 ```
 
-![shortcut](..\pic_1\shortcut.png)
+![shortcut](..\pic\pic_1\shortcut.png)
 
 ## 4. ls(List Directory)
 
@@ -185,4 +185,4 @@ $ ls -l
 
 如果希望查看隐藏文件，可以使用 `-a`（a 代表 all）
 
-![ls_1](..\pic_1\ls.png)
+![ls_1](..\pic\pic_1\ls.png)
