@@ -20,7 +20,7 @@ username@hostname:current_directory
 
 例如：
 
-![shell_prompt](D:\MarkdownBin\Linux\pic_1\shell_prompt.png)
+![shell_prompt](..\pic_1\shell_prompt.png)
 
 请注意提示符最后的 `$`符号
 
@@ -32,11 +32,11 @@ username@hostname:current_directory
 
 `echo`  回声，顾名思义，**原样显示（回声在）**终端上
 
-![echo](D:\MarkdownBin\Linux\pic_1\echo.png)
+![echo](..\pic_1\echo.png)
 
 同样地，我们可以试试`date`（日期，显示当前的日期和时间），和`whoami`（我是谁，显示当前用户名），看看会输出什么？
 
-![date_whoami](D:\MarkdownBin\Linux\pic_1\date_whoami.png)
+![date_whoami](..\pic_1\date_whoami.png)
 
 ## 2. pwd(Print Working Directory)
 
@@ -80,4 +80,4 @@ username@hostname:current_directory
 
 例如：
 
-![pwd](D:\MarkdownBin\Linux\pic_1\pwd.png)
+![pwd](..\pic_1\pwd.png)
