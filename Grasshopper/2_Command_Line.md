@@ -10,7 +10,7 @@
 
 还有其它的 shell，但是我们不会涉及
 
-### Shell 提示符
+**Shell 提示符**
 
 Shell 提示符（shell prompt）可能会有所不同，但通常会遵守以下格式：
 
@@ -28,7 +28,7 @@ username@hostname:current_directory
 
 在你输入命令的时候，不需要输入这个符号，它只是用于标识提示符的而已
 
-### 第一条命令：echo
+**第一条命令：echo**
 
 `echo`  回声，顾名思义，**原样显示（回声在）**终端上
 
@@ -38,7 +38,7 @@ username@hostname:current_directory
 
 ![date_whoami](..\pic_1\date_whoami.png)
 
-## 2. pwd(Print Working Directory)
+## 2. pwd (Print Working Directory)
 
  在 Linux 中，**一切皆文件**
 
@@ -70,10 +70,10 @@ username@hostname:current_directory
 
 其中，这些文件和目录的名字称之为**路径**
 
-例如，如果你有一个名为 `home` 的文件夹，里面有一个子文件夹叫做 `pete`，而在 `pete` 里面又有一个子文件夹叫做 `Movies`，那么这个路径会长这样：
+例如，如果你有一个名为 `home` 的文件夹，里面有一个子文件夹叫做 `elo`，而在 `elo` 里面又有一个子文件夹叫做 `Movies`，那么这个路径会长这样：
 
-```ruby
-/home/pete/Movies
+```bash
+/home/elo/Movies
 ```
 
 如果我们希望在文件系统中来去自如，我们首先就需要知道**当前所在的目录位置**，可以使用 `pwd` 命令
@@ -81,3 +81,108 @@ username@hostname:current_directory
 例如：
 
 ![pwd](..\pic_1\pwd.png)
+
+## 3. cd (Change Directory)
+
+现在你已经知道“我在哪了”，现在我们试试看如何在**文件系统中“走动”**
+
+记住，我们在文件系统的“导航”是通过“路径”来实现的。而路径有两种方式：
+
+**1. 绝对路径（Absolute Path）**
+
+- 从**根目录开始**写出的完整路径
+- 根目录就像树的根，所有路径都从这里开始
+- 只要路径以 `/` 开头，那就是绝对路径
+
+例如：
+
+```bash
+$ cd /home/elo/Desktop
+```
+
+意思是：进入根目录 `/` → 然后进入 `home` → 然后进入 `elo` → 然后进入 `Desktop`
+
+
+
+**2. 相对路径（Relative Path）**
+
+- 这是**相对于你当前所在目录**来写的路径
+- 不需要从 `/` 开始，而是从当前位置出发
+
+如果你已经在：
+
+```bash
+/home/elo/Documents
+```
+
+你想进入这个目录里的子目录叫做 `taxes`，你不需要写完整路径 `/home/elo/Documents/taxes`，你只要写：
+
+```bash
+$ cd taxes
+```
+
+
+
+对于以上两种路径，例如，为了到达 `/home/elo/test/a/b` 这个文件夹内，如果我们想使用绝对路径：
+
+![absolute_path](..\pic_1\absolute_path.png)
+
+假设我们已经在 `/home/elo/test/a`，那么直接使用如下命令：
+
+![relative_path](..\pic_1\relative_path.png)
+
+
+
+不过，总是使用相对路径和绝对路径也是很累的，仍然有些快捷路径可以帮助我们导航：
+
+-  `.`：当前目录
+-  `..`：上一级目录
+-  `~`：用户主目录
+-  `-`：上次访问过的目录
+
+```bash
+$ cd .  # 留在当前目录
+$ cd ..	# 回到上一级目录
+$ cd ~  # 回到主目录(比如/home/elo)
+$ cd -  # 回到一个你刚才去过的目录
+```
+
+![shortcut](..\pic_1\shortcut.png)
+
+## 4. ls(List Directory)
+
+现在我们已经在知道如何再文件系统中移动了，可是，**我们如何知道当前目录下有哪些东西呢？**
+
+我们可以使用一个很有用的命令： `ls` 
+
+默认情况下，它会列出**当前目录**下的目录和文件夹
+
+```bash
+$ ls
+```
+
+如果想查看**某个特定目录**里的内容，也可以在后面加上路径：
+
+```bash
+$ ls /home/elo
+```
+
+**命令参数（Command Options / Flags）**
+
+在 Linux 中，很多命令可以通过添加**参数（也叫选项、flag)**来扩展或改变行为，例如：
+
+```bash
+$ ls -l
+```
+
+这些字母告诉命令要”怎么做“，或者”做的更详细“
+
+例如刚刚的示例命令，`l` 代表  **long format（长格式）**，它会显示每个文件的详细信息
+
+包括权限、链接数、拥有者，用户组，大小，时间戳，文件名
+
+另外，在 linux 中，不是所有文件都是默认可见的，**以 `.` 开头的文件都是”隐藏文件“**
+
+如果希望查看隐藏文件，可以使用 `-a`（a 代表 all）
+
+![ls_1](..\pic_1\ls.png)
