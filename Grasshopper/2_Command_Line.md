@@ -211,7 +211,7 @@ $ touch filename
 
 但当指定的文件不存在时，`touch` 会**自动创建一个新的空文件**，所以也常被用来创建文件。
 
-![touch](D:\MarkdownBin\Linux\pic\pic _5\touch.png)
+![touch](..\pic\pic _5\touch.png)
 
 
 
@@ -229,7 +229,7 @@ $ file filename
 
 这很简单，但是在此我更想解释一下 Linux 系统识别文件的机制
 
-![touch](D:\MarkdownBin\Linux\pic\pic _5\touch.png)
+![touch](..\pic\pic _5\touch.png)
 
 **魔术数（magic number）识别机制**
 
@@ -244,7 +244,7 @@ $ file filename
 
  这些魔术数是由文件格式规范定义的，具有唯一性。
 
-![fake](D:\MarkdownBin\Linux\pic\pic _5\fake.png)
+![fake](..\pic\pic _5\fake.png)
 
 例如图中这个例子，虽然我们创建了一个名为 `fake.png` 的文件，使用 `file` 命令查看的时候，显示的类型却是一个 **ASCII 字符编码的** 纯文本
 
@@ -252,7 +252,7 @@ $ file filename
 
 Linux 真正识别的是**文件头部内容**，即之前所说的魔术数
 
-![content](D:\MarkdownBin\Linux\pic\pic _5\content.png)
+![content](..\pic\pic _5\content.png)
 
 使用特殊的命令查看该文件以后，可以得到 `fake.png` 的具体内容，它的开头是：
 
@@ -276,7 +276,7 @@ Linux 真正识别的是**文件头部内容**，即之前所说的魔术数
 
 那么，是否存在一种情况，文本文件第一排的内容恰好和 PNG 文件的开头内容重合？
 
-![fake_png](D:\MarkdownBin\Linux\pic\pic _5\fake_png.png)
+![fake_png](..\pic\pic _5\fake_png.png)
 
 可以看到它被识别为了 PNG，尽管我们知道它实际上不是
 
