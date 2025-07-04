@@ -34,9 +34,11 @@ username@hostname:current_directory
 
 ![echo](..\pic\pic_1\echo.png)
 
-同样地，我们可以试试`date`（日期，显示当前的日期和时间），和`whoami`（我是谁，显示当前用户名），看看会输出什么？
+同样地，我们可以试试` date`（日期，显示当前的日期和时间），和 `whoami`（我是谁，显示当前用户名），看看会输出什么？
 
 ![date_whoami](..\pic\pic_1\date_whoami.png)
+
+
 
 ## 2. pwd (Print Working Directory)
 
@@ -80,7 +82,9 @@ username@hostname:current_directory
 
 例如：
 
-![pwd](..\pic_1\pwd.png)
+![pwd](..\pic\pic_1\pwd.png)
+
+
 
 ## 3. cd (Change Directory)
 
@@ -149,6 +153,8 @@ $ cd -  # 回到一个你刚才去过的目录
 
 ![shortcut](..\pic\pic_1\shortcut.png)
 
+
+
 ## 4. ls(List Directory)
 
 现在我们已经在知道如何再文件系统中移动了，可是，**我们如何知道当前目录下有哪些东西呢？**
@@ -186,3 +192,106 @@ $ ls -l
 如果希望查看隐藏文件，可以使用 `-a`（a 代表 all）
 
 ![ls_1](..\pic\pic_1\ls.png)
+
+
+
+## 5. touch
+
+现在学习如何创建文件，可以使用如下简单的方法：
+
+```bash
+$ touch filename
+```
+
+该命令会创建一个名为 `filename` 的空文件（如果该文件不存在的话）。
+
+创建文件后，可以使用 `ls -l` 查看文件的详细信息，在这些信息中，我们更关注的是它的**时间戳**（即最后修改时间）
+
+事实上，`touch` 的本意是“轻轻触碰一下文件”，**不会修改文件的内容**，它原本的用途是**更新文件的时间戳**。
+
+但当指定的文件不存在时，`touch` 会**自动创建一个新的空文件**，所以也常被用来创建文件。
+
+![touch](D:\MarkdownBin\Linux\pic\pic _5\touch.png)
+
+
+
+## 6. file
+
+与我们所熟悉的 Windows 系统不同，Windows 系统通过文件扩展名来判断文件的类型
+
+在 Linux 系统中，文件名只是一个**字符串标签**，Linux 主要通过**文件的具体内容**来判断类型
+
+我们可以使用 `file` 命令来查看文件究竟是何种类型
+
+```bash
+$ file filename
+```
+
+这很简单，但是在此我更想解释一下 Linux 系统识别文件的机制
+
+![touch](D:\MarkdownBin\Linux\pic\pic _5\touch.png)
+
+**魔术数（magic number）识别机制**
+
+在 Linux 中，判断一个文件类型并不是只看扩展名，而是通过检查文件内容的前几个字节
+
+这些字节叫做 **魔术数**，它们是某种文件格式在开头的标志。
+ 例如：
+
+- PNG 文件以 `89 50 4E 47` 开头（对应 `.PNG`）
+- JPG 文件以 `FF D8 FF` 开头
+- PDF 文件以 `%PDF`（`25 50 44 46`）开头
+
+ 这些魔术数是由文件格式规范定义的，具有唯一性。
+
+![fake](D:\MarkdownBin\Linux\pic\pic _5\fake.png)
+
+例如图中这个例子，虽然我们创建了一个名为 `fake.png` 的文件，使用 `file` 命令查看的时候，显示的类型却是一个 **ASCII 字符编码的** 纯文本
+
+事实上，文件扩展名 `.jpg`、`.png`、`.txt` 在 Linux 中不是强制规定的，只是给人类看的
+
+Linux 真正识别的是**文件头部内容**，即之前所说的魔术数
+
+![content](D:\MarkdownBin\Linux\pic\pic _5\content.png)
+
+使用特殊的命令查看该文件以后，可以得到 `fake.png` 的具体内容，它的开头是：
+
+```bash
+00000000  54 68 69 73 20 69 73 20  6e 6f 74 20 72 65 61 6c  |This is not real|
+```
+
+这些字节没有任何魔术数结构，所以系统判断为 ASCII 编码的纯文本
+
+当我们查看一个真正的 png 文件的时候，会看到这样的形式：
+
+![png](D:\MarkdownBin\Linux\pic\pic _5\png.png)
+
+该 png 文件的开头是：
+
+```bash
+00000000  89 50 4e 47 0d 0a 1a 0a  00 00 00 0d 49 48 44 52  |.PNG........IHDR|
+```
+
+其中的 `89 50 4E 47` 是标准的 PNG 魔术数，后续的 `IHDR` 是图像头块，这是所有 PNG 必备结构
+
+那么，是否存在一种情况，文本文件第一排的内容恰好和 PNG 文件的开头内容重合？
+
+![fake_png](D:\MarkdownBin\Linux\pic\pic _5\fake_png.png)
+
+可以看到它被识别为了 PNG，尽管我们知道它实际上不是
+
+当 Linux 识别一个文件的时候，识别流程如下：
+
+1. **优先检查魔术数（Magic Number）**：
+    `file` 首先会读取文件的前几个字节，查找是否匹配已知文件格式的魔术数（如 PNG、PDF、ZIP 等）。如果魔术数匹配，并且后续结构合理，立即判定为对应的格式文件。
+
+2. **结构校验**：
+    如果魔术数匹配但文件结构异常（如缺失关键块），`file` 可能不会确认格式，而是退回为 `data` 类型，表示“无法识别但可能是二进制”。
+
+3. **未命中魔术数时执行内容分析**：
+    如果没有识别出魔术数，`file` 会检查文件是否只包含可打印字符（ASCII 或 UTF-8）、是否有换行符、是否存在乱码等特征，以判断是否为文本文件，如 `ASCII text`、`UTF-8 Unicode text` 等。
+
+4. **最终默认类型为 `data`**：
+    若既没有魔术数，也无法判定为文本，`file` 会将该文件归类为 `data`，表示其为原始的二进制或未知内容。
+
+对着顺序再次查看之前的内容，就可以清晰的了解 Linux 是如何识别文件类型的了
